@@ -1,0 +1,146 @@
+/* Reset básico e fontes */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #f0f0f0; /* Cor padrão do texto clara */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('images/fundo-principal.jpg'); /* Ajuste este caminho! */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #333; /* Cor de fundo escura caso a imagem falhe */
+    padding-top: 70px; /* Espaço para header fixo (Ajuste se altura do header mudar) */
+    position: relative;
+    margin: 0;
+}
+
+/* Overlay (Mantido em 50% - ajuste se precisar) */
+body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Preto com 50% de opacidade */
+    z-index: -1;
+}
+
+/* --- Cabeçalho Fixo (Verde AINDA MAIS transparente) --- */
+.site-header {
+    /* background-color: rgba(40, 167, 69, 0.70); */ /* Verde 70% antigo */
+    background-color: rgba(40, 167, 69, 0.50); /* NOVO: Verde com 50% de opacidade */
+    backdrop-filter: blur(15px); /* Aumenta mais o desfoque */
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 0 20px;
+}
+.header-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; /* Para Título e Nav */ align-items: center; height: 70px; }
+/* Ajustes para o H1 e o ícone no Header */
+.site-header .site-title { color: #ffffff; font-size: 1.6em; font-weight: 700; display: flex; align-items: center; gap: 10px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra mais forte */ }
+.site-header .site-title i { font-size: 0.9em; }
+/* Navegação Principal */
+.main-nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 15px; }
+.nav-button { background: none; border: none; padding: 8px 12px; font-family: 'Roboto', sans-serif; font-size: 0.95em; font-weight: 500; color: #ffffff; cursor: pointer; border-radius: 4px; transition: color 0.3s ease, background-color 0.3s ease; position: relative; opacity: 0.95; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra mais forte */ }
+.nav-button::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 0; height: 2px; background-color: #ffffff; transform: scaleX(0); transition: transform 0.3s ease; }
+.nav-button:hover { background-color: rgba(255, 255, 255, 0.15); opacity: 1; color: #ffffff; }
+.nav-button.active { color: #ffffff; opacity: 1; font-weight: 700; }
+.nav-button.active::after { transform: scaleX(1); }
+
+/* --- Conteúdo Principal (SEM fundo branco) --- */
+main.main-content { flex-grow: 1; max-width: 800px; width: 90%; margin: 20px auto; padding: 25px 30px; border-radius: 8px; color: #f0f0f0; }
+
+/* Cores de texto dentro do main */
+.main-content h2, .main-content h3, .main-content p, .main-content .data-jogo,
+#confirmacao-section .player-name, #fotos-section .gallery-hint { color: #ffffff; }
+.main-content .data-jogo { color: #dddddd; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); text-align: center; margin-bottom: 25px; font-size: 1.1em; font-weight: bold;}
+.main-content .section-content h2 { border-bottom-color: rgba(255, 255, 255, 0.3); color: #ffffff; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); margin-bottom: 25px; padding-bottom: 10px; font-size: 1.8em; text-align: center;}
+#confirmacao-section .section-content h3 { color: #ffffff; font-size: 1.15em; margin-top: 15px; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); text-align: left; }
+.section-content { padding: 10px 0; text-align: left; }
+.content-section { display: none; animation: fadeIn 0.5s ease-in-out; }
+.content-section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- Seção de Confirmação com Fundo Suave --- */
+#confirmacao-section .section-content { background-color: rgba(0, 0, 0, 0.25); padding: 20px; border-radius: 8px; margin-top: 15px; }
+
+/* Sumário Confirmação */
+.confirmation-summary { background-color: rgba(255, 255, 255, 0.1); padding: 12px 15px; border-radius: 6px; margin-bottom: 25px; text-align: center; font-size: 0.95em; color: #f0f0f0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
+.confirmation-summary span { white-space: nowrap; }
+.confirmation-summary strong { color: #ffffff; font-weight: 700; }
+
+/* Lista Confirmação */
+#confirmacao-section .list { border-top: none; margin-top: 10px; padding-top: 0; list-style: none; padding-left: 0; }
+#confirmacao-section .player-item { background-color: transparent; margin-bottom: 0px; border-radius: 0; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 10px 5px; box-shadow: none; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+#confirmacao-section .player-item:last-child { border-bottom: none; }
+#confirmacao-section .player-name { color: #ffffff; font-weight: 500; font-size: 1.0em; flex-grow: 1; margin-right: 10px; word-break: break-word; }
+#confirmacao-section .player-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+/* --- BOTÕES COM CORES PADRÃO SUAVES --- */
+#confirmacao-section .btn { padding: 7px 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; cursor: pointer; font-size: 0.9em; transition: all 0.2s ease; white-space: nowrap; font-weight: 500; color: rgba(255,255,255,0.8); background-color: rgba(255, 255, 255, 0.1); }
+#confirmacao-section .btn:active:not(.disabled) { transform: scale(0.95); }
+#confirmacao-section .btn.disabled { cursor: not-allowed; opacity: 0.5; pointer-events: none; }
+#confirmacao-section .btn.vou { border-color: rgba(40, 167, 69, 0.5); color: #a1eab8; background-color: rgba(40, 167, 69, 0.15); }
+#confirmacao-section .btn.vou:hover:not(.selected):not(.disabled) { background-color: rgba(40, 167, 69, 0.3); color: #ffffff; border-color: rgba(40, 167, 69, 0.8); }
+#confirmacao-section .btn.vou.selected { background-color: #28a745; color: white; font-weight: bold; border-color: #208c3a; opacity: 1; }
+#confirmacao-section .btn.nao-vou { border-color: rgba(220, 53, 69, 0.5); color: #f5a7af; background-color: rgba(220, 53, 69, 0.1); }
+#confirmacao-section .btn.nao-vou:hover:not(.selected):not(.disabled) { background-color: rgba(220, 53, 69, 0.25); color: #ffffff; border-color: rgba(220, 53, 69, 0.8); }
+#confirmacao-section .btn.nao-vou.selected { background-color: #dc3545; color: white; font-weight: bold; border-color: #b02a37; opacity: 1; }
+#confirmacao-section .status-message { margin-top: 25px; }
+
+/* Galeria Fotos */
+#fotos-section .photo-gallery-wrapper { margin-top: 15px; overflow: hidden; position: relative; }
+#fotos-section .photo-gallery { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding: 10px 5px; -ms-overflow-style: none; scrollbar-width: none; }
+#fotos-section .photo-gallery::-webkit-scrollbar { display: none; }
+#fotos-section .photo-item { flex: 0 0 auto; scroll-snap-align: center; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 75%; max-width: 350px; }
+#fotos-section .photo-item img { display: block; width: 100%; height: auto; max-height: 400px; object-fit: cover; }
+#fotos-section .gallery-hint { color: #dddddd; text-align: center; margin-top: 15px; }
+
+/* --- AJUSTE COMENTÁRIOS DISQUS --- */
+.comments-container {
+    margin-top: 50px; /* Espaço ACIMA */
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15); /* Linha separadora */
+}
+.comments-container h3 {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 1.3em;
+    text-align: center;
+}
+#disqus_thread { /* Limita altura e adiciona scroll */
+    min-height: 100px;
+    max-height: 450px; /* <<< AJUSTE A ALTURA MÁXIMA AQUI CONFORME GOSTO */
+    overflow-y: auto;
+    background-color: rgba(0,0,0, 0.15); /* Fundo um pouco mais escuro que a seção */
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+/* Scrollbar Estilizada (Opcional) */
+#disqus_thread::-webkit-scrollbar { width: 8px; }
+#disqus_thread::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 4px; }
+#disqus_thread::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.3); border-radius: 4px; border: 2px solid transparent; background-clip: content-box; }
+#disqus_thread::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.5); }
+/* --- FIM AJUSTE DISQUS --- */
+
+
+/* Rodapé (Verde BEM MAIS transparente) */
+.site-footer {
+    font-size: 0.9em; color: #ffffff; text-align: center; padding: 15px;
+    /* background-color: rgba(40, 167, 69, 0.50); */ /* Verde 50% antigo */
+    background-color: rgba(40, 167, 69, 0.40); /* NOVO: Verde com 40% de opacidade */
+    width: 100%; margin-top: auto; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra mais forte */
+}
+.site-footer p { color: #ffffff; }
+
+/* Mensagem Status */
+.status-message { padding: 10px 15px; margin: 20px auto 0 auto; border-radius: 5px; font-weight: bold; text-align: center; display: none; opacity: 0; transition: opacity 0.5s ease; max-width: 90%; border: 1px solid rgba(255,255,255,0.5); }
+.status-message.success { background-color: rgba(40, 167, 69, 0.8); color: #ffffff; }
+.status-message.error { background-color: rgba(220, 53, 69, 0.8); color: #ffffff; }
+.status-message.loading { background-color: rgba(108, 117, 125, 0.8); color: #ffffff; }
+
+/* --- Media Queries --- */
+@media (max-width: 768px) { body { padding-top: 60px; } .site-header { padding: 0 15px; } .header-container { height: 60px; justify-content: space-between; } .main-nav { gap: 10px; } .nav-button { font-size: 0.9em; padding: 8px 8px; } .main-content { padding: 20px; margin: 20px auto; width: 95%;} .section-content h2 { font-size: 1.6em; } #fotos-section .photo-item { width: 70%; } }
+@media (max-width: 480px) { body { padding-top: 60px; } .header-container { height: 60px; flex-direction: row; padding: 0 10px; } .site-header .site-title { font-size: 1.1em; gap: 5px;} .site-header .site-title i { font-size: 0.8em;} .main-nav ul { flex-wrap: nowrap; gap: 5px;} .nav-button { font-size: 0.8em; padding: 7px 5px;} .main-content { padding: 15px; margin: 15px auto; width: 95%; } .section-content h2 { font-size: 1.4em; } #confirmacao-section .player-item { flex-direction: column; align-items: flex-start; padding-top: 10px; padding-bottom: 10px; } #confirmacao-section .player-name { margin-bottom: 10px; margin-right: 0; font-size: 1em; } #confirmacao-section .player-actions { width: 100%; justify-content: space-around; } #confirmacao-section .btn { padding: 9px 12px; flex-grow: 1; text-align: center; max-width: 48%; font-size: 0.9em;} #fotos-section .photo-item { width: 85%; } .comments-container { margin-top: 30px; padding-top: 15px; } .comments-container h3 { font-size: 1.2em; margin-bottom: 15px;} #disqus_thread { max-height: 350px; } /* Diminui altura Disqus em mobile */ }

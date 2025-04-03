@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Foto - Pelada</title>
+    {/* Link para o mesmo CSS para manter um estilo parecido */}
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos adicionais específicos para esta página */
+        body {
+            padding-top: 20px; /* Remove padding do header fixo */
+            min-height: auto; /* Não precisa de altura mínima total */
+            justify-content: flex-start; /* Alinha conteúdo no topo */
+            background-attachment: scroll; /* Fundo pode rolar aqui */
+        }
+        body::before { display: none; } /* Remove overlay escuro */
+        .upload-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .upload-container h1 {
+            text-align: center;
+            color: #1e2a38;
+            margin-bottom: 25px;
+        }
+        .form-group-upload { margin-bottom: 20px; }
+        .file-label {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .file-label:hover { background-color: #0056b3; }
+        input[type="file"] { display: none; } /* Esconde o input padrão */
+        .file-name { color: #555; font-style: italic; }
+        .upload-button {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .upload-button:hover { background-color: #218838; }
+        .upload-button:disabled { background-color: #cccccc; cursor: not-allowed; }
+        .status-message { /* Estilos copiados do style.css principal */
+             padding: 10px 15px; margin: 20px auto 0 auto; border-radius: 5px; font-weight: bold;
+             text-align: center; display: none; opacity: 1; transition: opacity 0.5s ease; max-width: 100%;
+        }
+        .status-message.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-message.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .status-message.loading { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h1>Upload de Foto para Galeria</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group-upload">
+                <label for="photoFile" class="file-label">Escolher Arquivo</label>
+                <input type="file" name="photoFile" id="photoFile" accept="image/jpeg, image/png, image/gif, image/webp" required>
+                <span id="fileName" class="file-name">Nenhum arquivo selecionado</span>
+            </div>
+            <button type="submit" id="submitUploadBtn" class="upload-button">Enviar Foto</button>
+        </form>
+        <div id="uploadStatusMessage" class="status-message" style="display: none;"></div>
+        <p style="margin-top: 20px; font-size: 0.9em; text-align: center;">
+            <a href="index.html">Voltar para o site principal</a>
+        </p>
+    </div>
+
+    {/* Script para este formulário específico */}
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        const photoFileInput = document.getElementById('photoFile');
+        const fileNameSpan = document.getElementById('fileName');
+        const submitButton = document.getElementById('submitUploadBtn');
+        const statusMessageDiv = document.getElementById('uploadStatusMessage');
+
+        // Mostra nome do arquivo selecionado
+        photoFileInput.addEventListener('change', () => {
+            if (photoFileInput.files.length > 0) {
+                fileNameSpan.textContent = photoFileInput.files[0].name;
+            } else {
+                fileNameSpan.textContent = 'Nenhum arquivo selecionado';
+            }
+        });
+
+        // Lida com o envio do formulário
+        uploadForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            if (!photoFileInput.files || photoFileInput.files.length === 0) {
+                showStatus("Por favor, selecione um arquivo.", "error");
+                return;
+            }
+
+            const file = photoFileInput.files[0];
+            const formData = new FormData();
+            formData.append('photoFile', file); // 'photoFile' DEVE ser o mesmo nome esperado pelo PHP ($_FILES['photoFile'])
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Enviando...';
+            showStatus("Enviando foto...", "loading", false);
+
+            try {
+                // Assume que upload.php está na mesma pasta que upload.html
+                const response = await fetch('upload.php', {
+                    method: 'POST',
+                    body: formData // Envia como FormData, o cabeçalho Content-Type é definido automaticamente
+                    // Não defina Content-Type manualmente ao usar FormData
+                });
+
+                const result = await response.json(); // Espera uma resposta JSON do PHP
+
+                if (response.ok && result.status === 'success') {
+                    showStatus(result.message || "Foto enviada com sucesso!", "success");
+                    uploadForm.reset(); // Limpa o formulário
+                    fileNameSpan.textContent = 'Nenhum arquivo selecionado';
+                } else {
+                    throw new Error(result.message || "Erro desconhecido do servidor.");
+                }
+
+            } catch (error) {
+                console.error("Erro no fetch:", error);
+                showStatus(`Erro ao enviar: ${error.message}`, "error");
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Enviar Foto';
+                // Esconde a mensagem de loading se ainda estiver visível
+                if (statusMessageDiv.classList.contains('loading')) {
+                     setTimeout(() => { statusMessageDiv.style.display = 'none'; statusMessageDiv.classList.remove('loading');}, 500);
+                }
+            }
+        });
+
+        // Função para mostrar status nesta página
+        function showStatus(message, type, autoHide = true) {
+            if (!statusMessageDiv) return;
+            statusMessageDiv.textContent = message;
+            statusMessageDiv.className = 'status-message'; // Reseta
+            statusMessageDiv.classList.add(type); // Adiciona classe
+            statusMessageDiv.style.display = 'block';
+
+            if (autoHide) {
+                setTimeout(() => { statusMessageDiv.style.display = 'none'; }, 4000); // Mostra por 4 segundos
+            }
+        }
+    </script>
+
+</body>
+</html>
