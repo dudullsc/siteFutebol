@@ -30,19 +30,17 @@ body::before {
 /* --- Cabeçalho Fixo (Verde AINDA MAIS transparente) --- */
 .site-header {
     /* background-color: rgba(40, 167, 69, 0.70); */ /* Verde 70% antigo */
-    background-color: rgba(40, 167, 69, 0.50); /* NOVO: Verde com 50% de opacidade */
-    backdrop-filter: blur(15px); /* Aumenta mais o desfoque */
+    background-color: rgba(40, 167, 69, 0.50); /* Verde com 50% de opacidade */
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 0 20px;
 }
 .header-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; /* Para Título e Nav */ align-items: center; height: 70px; }
-/* Ajustes para o H1 e o ícone no Header */
-.site-header .site-title { color: #ffffff; font-size: 1.6em; font-weight: 700; display: flex; align-items: center; gap: 10px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra mais forte */ }
+.site-header .site-title { color: #ffffff; font-size: 1.6em; font-weight: 700; display: flex; align-items: center; gap: 10px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 .site-header .site-title i { font-size: 0.9em; }
-/* Navegação Principal */
 .main-nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 15px; }
-.nav-button { background: none; border: none; padding: 8px 12px; font-family: 'Roboto', sans-serif; font-size: 0.95em; font-weight: 500; color: #ffffff; cursor: pointer; border-radius: 4px; transition: color 0.3s ease, background-color 0.3s ease; position: relative; opacity: 0.95; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra mais forte */ }
+.nav-button { background: none; border: none; padding: 8px 12px; font-family: 'Roboto', sans-serif; font-size: 0.95em; font-weight: 500; color: #ffffff; cursor: pointer; border-radius: 4px; transition: color 0.3s ease, background-color 0.3s ease; position: relative; opacity: 0.95; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 .nav-button::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 0; height: 2px; background-color: #ffffff; transform: scaleX(0); transition: transform 0.3s ease; }
 .nav-button:hover { background-color: rgba(255, 255, 255, 0.15); opacity: 1; color: #ffffff; }
 .nav-button.active { color: #ffffff; opacity: 1; font-weight: 700; }
@@ -76,8 +74,7 @@ main.main-content { flex-grow: 1; max-width: 800px; width: 90%; margin: 20px aut
 #confirmacao-section .player-item:last-child { border-bottom: none; }
 #confirmacao-section .player-name { color: #ffffff; font-weight: 500; font-size: 1.0em; flex-grow: 1; margin-right: 10px; word-break: break-word; }
 #confirmacao-section .player-actions { display: flex; gap: 8px; flex-shrink: 0; }
-
-/* --- BOTÕES COM CORES PADRÃO SUAVES --- */
+/* Botões Confirmação */
 #confirmacao-section .btn { padding: 7px 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; cursor: pointer; font-size: 0.9em; transition: all 0.2s ease; white-space: nowrap; font-weight: 500; color: rgba(255,255,255,0.8); background-color: rgba(255, 255, 255, 0.1); }
 #confirmacao-section .btn:active:not(.disabled) { transform: scale(0.95); }
 #confirmacao-section .btn.disabled { cursor: not-allowed; opacity: 0.5; pointer-events: none; }
@@ -89,49 +86,107 @@ main.main-content { flex-grow: 1; max-width: 800px; width: 90%; margin: 20px aut
 #confirmacao-section .btn.nao-vou.selected { background-color: #dc3545; color: white; font-weight: bold; border-color: #b02a37; opacity: 1; }
 #confirmacao-section .status-message { margin-top: 25px; }
 
-/* Galeria Fotos */
-#fotos-section .photo-gallery-wrapper { margin-top: 15px; overflow: hidden; position: relative; }
-#fotos-section .photo-gallery { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding: 10px 5px; -ms-overflow-style: none; scrollbar-width: none; }
-#fotos-section .photo-gallery::-webkit-scrollbar { display: none; }
-#fotos-section .photo-item { flex: 0 0 auto; scroll-snap-align: center; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 75%; max-width: 350px; }
-#fotos-section .photo-item img { display: block; width: 100%; height: auto; max-height: 400px; object-fit: cover; }
-#fotos-section .gallery-hint { color: #dddddd; text-align: center; margin-top: 15px; }
 
-/* --- AJUSTE COMENTÁRIOS DISQUS --- */
-.comments-container {
-    margin-top: 50px; /* Espaço ACIMA */
-    padding-top: 25px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15); /* Linha separadora */
+/* --- ESTILOS ATUALIZADOS PARA SWIPER.JS GALLERY --- */
+
+/* Container principal do Swiper */
+.photo-swiper-container {
+    width: 100%;
+    padding: 10px 0 40px 0; /* Espaço abaixo para paginação/navegação */
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden; /* Importante */
+    border-radius: 8px;
 }
-.comments-container h3 {
-    margin-bottom: 20px;
-    color: #ffffff;
-    font-size: 1.3em;
+
+/* Wrapper onde ficam os slides */
+.swiper-wrapper {
+    align-items: center; /* Alinha slides verticalmente */
+}
+
+/* Cada slide individual */
+.swiper-slide {
     text-align: center;
-}
-#disqus_thread { /* Limita altura e adiciona scroll */
-    min-height: 100px;
-    max-height: 450px; /* <<< AJUSTE A ALTURA MÁXIMA AQUI CONFORME GOSTO */
-    overflow-y: auto;
-    background-color: rgba(0,0,0, 0.15); /* Fundo um pouco mais escuro que a seção */
-    padding: 15px;
+    font-size: 14px;
+    color: #ccc;
+    background: rgba(0, 0, 0, 0.3); /* Fundo escuro slide */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     border-radius: 6px;
-    margin-top: 15px;
+    /* ALTURA FIXA NO SLIDE - PARA UNIFORMIZAR GRADE */
+    height: 220px;  /* <<< AJUSTE ESTA ALTURA SE QUISER MAIOR/MENOR */
 }
-/* Scrollbar Estilizada (Opcional) */
+
+/* Imagem dentro do slide */
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;       /* Faz imagem preencher altura do slide */
+    object-fit: cover;  /* Cobre a área, mantendo proporção (pode cortar) */
+}
+
+/* Paginação (bolinhas) */
+.swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.6);
+    opacity: 1;
+    transition: background-color 0.3s ease;
+}
+.swiper-pagination-bullet-active {
+    background: #ffffff;
+}
+
+/* Navegação (setas) */
+.swiper-button-prev,
+.swiper-button-next {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    top: 50%;
+    margin-top: -22px;
+    transition: background-color 0.3s ease;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+     background-color: rgba(0, 0, 0, 0.6);
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    font-size: 18px;
+    font-weight: bold;
+}
+.swiper-button-prev { left: 10px; }
+.swiper-button-next { right: 10px; }
+
+/* Esconde setas em telas muito pequenas (Verifique o media query se removeu) */
+/* @media (max-width: 600px) { .swiper-button-prev, .swiper-button-next { display: none; } } */
+
+/* Texto de dica */
+#fotos-section .gallery-hint {
+    color: #dddddd; text-align: center; margin-top: 15px; font-size: 0.9em;
+}
+
+/* --- FIM ESTILOS SWIPER --- */
+
+
+/* --- AJUSTE COMENTÁRIOS DISQUS (Mantido) --- */
+.comments-container { margin-top: 50px; padding-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.15); }
+.comments-container h3 { margin-bottom: 20px; color: #ffffff; font-size: 1.3em; text-align: center; }
+#disqus_thread { min-height: 100px; max-height: 450px; overflow-y: auto; background-color: rgba(0,0,0, 0.15); padding: 15px; border-radius: 6px; margin-top: 15px; }
 #disqus_thread::-webkit-scrollbar { width: 8px; }
 #disqus_thread::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 4px; }
 #disqus_thread::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.3); border-radius: 4px; border: 2px solid transparent; background-clip: content-box; }
 #disqus_thread::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.5); }
-/* --- FIM AJUSTE DISQUS --- */
 
 
-/* Rodapé (Verde BEM MAIS transparente) */
+/* Rodapé */
 .site-footer {
     font-size: 0.9em; color: #ffffff; text-align: center; padding: 15px;
-    /* background-color: rgba(40, 167, 69, 0.50); */ /* Verde 50% antigo */
-    background-color: rgba(40, 167, 69, 0.40); /* NOVO: Verde com 40% de opacidade */
-    width: 100%; margin-top: auto; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra mais forte */
+    background-color: rgba(40, 167, 69, 0.40); /* Verde 40% */
+    width: 100%; margin-top: auto; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 .site-footer p { color: #ffffff; }
 
@@ -142,5 +197,11 @@ main.main-content { flex-grow: 1; max-width: 800px; width: 90%; margin: 20px aut
 .status-message.loading { background-color: rgba(108, 117, 125, 0.8); color: #ffffff; }
 
 /* --- Media Queries --- */
-@media (max-width: 768px) { body { padding-top: 60px; } .site-header { padding: 0 15px; } .header-container { height: 60px; justify-content: space-between; } .main-nav { gap: 10px; } .nav-button { font-size: 0.9em; padding: 8px 8px; } .main-content { padding: 20px; margin: 20px auto; width: 95%;} .section-content h2 { font-size: 1.6em; } #fotos-section .photo-item { width: 70%; } }
-@media (max-width: 480px) { body { padding-top: 60px; } .header-container { height: 60px; flex-direction: row; padding: 0 10px; } .site-header .site-title { font-size: 1.1em; gap: 5px;} .site-header .site-title i { font-size: 0.8em;} .main-nav ul { flex-wrap: nowrap; gap: 5px;} .nav-button { font-size: 0.8em; padding: 7px 5px;} .main-content { padding: 15px; margin: 15px auto; width: 95%; } .section-content h2 { font-size: 1.4em; } #confirmacao-section .player-item { flex-direction: column; align-items: flex-start; padding-top: 10px; padding-bottom: 10px; } #confirmacao-section .player-name { margin-bottom: 10px; margin-right: 0; font-size: 1em; } #confirmacao-section .player-actions { width: 100%; justify-content: space-around; } #confirmacao-section .btn { padding: 9px 12px; flex-grow: 1; text-align: center; max-width: 48%; font-size: 0.9em;} #fotos-section .photo-item { width: 85%; } .comments-container { margin-top: 30px; padding-top: 15px; } .comments-container h3 { font-size: 1.2em; margin-bottom: 15px;} #disqus_thread { max-height: 350px; } /* Diminui altura Disqus em mobile */ }
+/* (Cole aqui as regras @media que você tinha antes, elas são importantes!) */
+@media (max-width: 768px) { body { padding-top: 60px; } .site-header { padding: 0 15px; } .header-container { height: 60px; justify-content: space-between; } .main-nav { gap: 10px; } .nav-button { font-size: 0.9em; padding: 8px 8px; } .main-content { padding: 20px; margin: 20px auto; width: 95%;} .section-content h2 { font-size: 1.6em; } /* Swiper já tem breakpoint */ }
+@media (max-width: 480px) { body { padding-top: 60px; } .header-container { height: 60px; flex-direction: row; padding: 0 10px; } .site-header .site-title { font-size: 1.1em; gap: 5px;} .site-header .site-title i { font-size: 0.8em;} .main-nav ul { flex-wrap: nowrap; gap: 5px;} .nav-button { font-size: 0.8em; padding: 7px 5px;} .main-content { padding: 15px; margin: 15px auto; width: 95%; } .section-content h2 { font-size: 1.4em; } #confirmacao-section .player-item { flex-direction: column; align-items: flex-start; padding-top: 10px; padding-bottom: 10px; } #confirmacao-section .player-name { margin-bottom: 10px; margin-right: 0; font-size: 1em; } #confirmacao-section .player-actions { width: 100%; justify-content: space-around; } #confirmacao-section .btn { padding: 9px 12px; flex-grow: 1; text-align: center; max-width: 48%; font-size: 0.9em;} /* Swiper já tem breakpoint */ .comments-container { margin-top: 30px; padding-top: 15px; } .comments-container h3 { font-size: 1.2em; margin-bottom: 15px;} #disqus_thread { max-height: 350px; } }
+/* Adicione a regra para esconder setas se você removeu antes e quer de volta */
+@media (max-width: 600px) {
+     /* Remova ou comente a linha abaixo se quiser as setas em telas pequenas */
+     /* .swiper-button-prev, .swiper-button-next { display: none; } */
+}
