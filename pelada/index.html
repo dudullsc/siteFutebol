@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelada Organização</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" integrity="sha512-ZKX+BvQihRJPA8CROKBhDNvoc2aDMOdAlcm7TUQY+35XYtrd3yh95QOOhsPDQY9KRJザdU3l8U=="" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+
+    <div class="background-overlay"></div>
+
+    <header class="site-header">
+        <div class="header-container">
+             <h1 class="site-title"><i class="fa-solid fa-futbol"></i> Pelada Semanal</h1>
+             <nav class="main-nav">
+                 <ul>
+                     <li><button class="nav-button active" data-target="home-section">Home</button></li>
+                     <li><button class="nav-button" data-target="confirmacao-section">Confirmação</button></li>
+                     <li><button class="nav-button" data-target="fotos-section">Fotos</button></li>
+                 </ul>
+             </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <p class="data-jogo" id="data-sexta">Carregando data...</p>
+
+        <section id="home-section" class="content-section active">
+             <div class="section-content">
+                <h2>Bem-vindo à Pelada Semanal!</h2>
+                <p>Use o menu acima para confirmar sua presença ou ver as fotos.</p>
+                <p>Organização e resenha garantida toda sexta!</p>
+             </div>
+        </section>
+
+        <section id="confirmacao-section" class="content-section">
+             <div class="section-content">
+                 <h2>Confirmação de Presença</h2>
+                 <div class="confirmation-summary">
+                     <span>Confirmados: <strong id="count-confirmed">0</strong></span> |
+                     <span>Ausentes: <strong id="count-declined">0</strong></span> |
+                     <span>Pendentes: <strong id="count-pending">0</strong></span> /
+                     <span>Total: <strong id="count-total">0</strong></span>
+                 </div>
+                 <div id="playerList">
+                     <section class="player-group">
+                         <h3>Mensalistas</h3>
+                         <ul class="list">
+                              
+                              <li class="player-item" data-player="Tiago" data-category="Mensalista"> <span class="player-name">Tiago</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Jo" data-category="Mensalista"> <span class="player-name">Jo</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Eduardo" data-category="Mensalista"> <span class="player-name">Eduardo</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Didi" data-category="Mensalista"> <span class="player-name">Didi</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Gabriel" data-category="Mensalista"> <span class="player-name">Gabriel</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Toni" data-category="Mensalista"> <span class="player-name">Toni</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Diona" data-category="Mensalista"> <span class="player-name">Diona</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Bruno" data-category="Mensalista"> <span class="player-name">Bruno</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Thiago Pereira" data-category="Mensalista"> <span class="player-name">Thiago Pereira</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Branco" data-category="Mensalista"> <span class="player-name">Branco</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Anderson B" data-category="Mensalista"> <span class="player-name">Anderson B</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="29" data-category="Mensalista"> <span class="player-name">29</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Wil" data-category="Mensalista"> <span class="player-name">Wil</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                         </ul>
+                     </section>
+                     <section class="player-group">
+                         <h3>Avulsos</h3>
+                         <ul class="list">
+                              <li class="player-item" data-player="Saulo (Avulso)" data-category="Avulso"> <span class="player-name">Saulo</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Pedro (Avulso)" data-category="Avulso"> <span class="player-name">Pedro</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Oda (Avulso)" data-category="Avulso"> <span class="player-name">Oda</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Junior (Avulso)" data-category="Avulso"> <span class="player-name">Junior</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Zé (Avulso)" data-category="Avulso"> <span class="player-name">Zé</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Diego (Avulso)" data-category="Avulso"> <span class="player-name">Diego</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Pierre (Avulso)" data-category="Avulso"> <span class="player-name">Pierre</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Zico (Avulso)" data-category="Avulso"> <span class="player-name">Zico</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Gabriel M (Avulso)" data-category="Avulso"> <span class="player-name">Gabriel M</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Jhow (Avulso)" data-category="Avulso"> <span class="player-name">Jhow</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                              <li class="player-item" data-player="Bruno Alisson (Avulso)" data-category="Avulso"> <span class="player-name">Bruno Alisson</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                         </ul>
+                     </section>
+                     <section class="player-group">
+                         <h3>Goleiros 🥅</h3>
+                          <ul class="list">
+                             <li class="player-item" data-player="Leu" data-category="Goleiro"> <span class="player-name">Leu</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                             <li class="player-item" data-player="Bad boy" data-category="Goleiro"> <span class="player-name">Bad boy</span> <div class="player-actions"> <button class="btn vou">Vou</button> <button class="btn nao-vou">Não Vou</button> </div> </li>
+                          </ul>
+                     </section>
+                 </div>
+                 <div id="statusMessage" class="status-message" style="display: none;"></div>
+             </div>
+        </section>
+
+        <section id="fotos-section" class="content-section">
+             <div class="section-content">
+                <h2>Fotos da Galera</h2>
+           
+                <div class="swiper photo-swiper-container">
+                     <div class="swiper-wrapper" id="photoGallerySwiperWrapper">
+                         <div class="swiper-slide"><p>Carregando fotos...</p></div>
+                     </div>
+                     <div class="swiper-pagination"></div>
+                     <div class="swiper-button-prev"></div>
+                     <div class="swiper-button-next"></div>
+                 </div>
+                 <p class="gallery-hint">Clique na foto para ampliar ou arraste.</p>
+             </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>Pelada App © 2025</p>
+    </footer>
+
+    
+   
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script> 
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+</body>
+</html>
