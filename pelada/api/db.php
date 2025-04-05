@@ -1,40 +1,32 @@
 <?php
-// db.php - Conexão com MongoDB usando variáveis configuráveis
-
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/../vendor/autoload.php'; // Garante que a classe MongoDB esteja carregada
 
-use MongoDB\Client; // <-- IMPORTANTE!
-
 static $mongoClient = null;
 static $mongoDb = null;
-static $mongoCollection = null;
 
-function getMongoCollection() {
-    global $mongoClient, $mongoDb, $mongoCollection;
+function getMongoCollection($collectionName = null) {
+    global $mongoClient, $mongoDb;
     global $mongoConnectionString, $mongoDbName, $mongoCollectionName;
-
-    if ($mongoCollection !== null) {
-        return $mongoCollection;
-    }
 
     if ($mongoClient === null) {
         try {
-            $mongoClient = new Client($mongoConnectionString);
+            $mongoClient = new MongoDB\Client($mongoConnectionString);
             $mongoDb = $mongoClient->selectDatabase($mongoDbName);
-            $mongoDb->listCollectionNames(); // Apenas para testar conexão
-            error_log("✅ MongoDB conectado e banco selecionado com sucesso.");
+            $mongoDb->listCollectionNames(); // Testa conexão
+            error_log("✅ MongoDB conectado com sucesso.");
         } catch (Throwable $e) {
-            error_log("❌ ERRO DB: Falha ao conectar com o MongoDB: " . $e->getMessage());
+            error_log("❌ ERRO DB: " . $e->getMessage());
             throw new Exception("Falha crítica na conexão com o banco de dados.");
         }
     }
 
+    $collectionToUse = $collectionName ?? $mongoCollectionName;
+
     try {
-        $mongoCollection = $mongoDb->selectCollection($mongoCollectionName);
-        return $mongoCollection;
+        return $mongoDb->selectCollection($collectionToUse);
     } catch (Exception $e) {
-        error_log("❌ Erro ao selecionar coleção '{$mongoCollectionName}': " . $e->getMessage());
-        throw new Exception("Falha ao selecionar a coleção no banco de dados.");
+        error_log("❌ Erro ao acessar coleção '{$collectionToUse}': " . $e->getMessage());
+        throw new Exception("Erro ao acessar a coleção no banco de dados.");
     }
 }
